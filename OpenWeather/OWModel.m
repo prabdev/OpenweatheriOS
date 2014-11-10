@@ -16,11 +16,14 @@
     }
     if ([responseDict objectForKey:@"main"]) {
         NSDictionary *mainDict = [responseDict objectForKey:@"main"];
-        self.temperature = [mainDict objectForKey:@"temp"];
-        self.maxTemp = [mainDict objectForKey:@"temp_max"];
-        self.minTemp = [mainDict objectForKey:@"temp_min"];
-        self.humidity = [NSString stringWithFormat:@"%@",[mainDict objectForKey:@"humidity"]];
-        self.pressure = [NSString stringWithFormat:@"%@",[mainDict objectForKey:@"pressure"]];
+        float temp = ([[mainDict objectForKey:@"temp"] integerValue] * 9/5) - 459.67;
+        float maxtemp = ([[mainDict objectForKey:@"temp_max"] integerValue] * 9/5) - 459.67;
+        float mintemp = ([[mainDict objectForKey:@"temp_min"] integerValue] * 9/5) - 459.67;
+        self.temperature = [NSString stringWithFormat:@"%f",temp];
+        self.maxTemp = [NSString stringWithFormat:@"%f",maxtemp];
+        self.minTemp = [NSString stringWithFormat:@"%f",mintemp];
+        self.humidity = [mainDict objectForKey:@"humidity"];
+        self.pressure = [mainDict objectForKey:@"pressure"];
     }
 }
 
